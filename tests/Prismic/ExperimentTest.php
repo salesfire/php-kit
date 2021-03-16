@@ -9,13 +9,13 @@ class ExperimentTest extends TestCase
 {
     private $experiments;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $experimentsJson = \json_decode($this->getJsonFixture('experiments.json'));
         $this->experiments = Experiments::parse($experimentsJson);
     }
 
-    public function testParsing()
+    public function testParsing(): void
     {
         $running = $this->experiments->getRunning();
         $exp1 = $running[0];
@@ -30,7 +30,7 @@ class ExperimentTest extends TestCase
         $this->assertEquals("VDUBBawGALAGelsa", $base->getRef());
     }
 
-    public function testCookieParsing()
+    public function testCookieParsing(): void
     {
         $this->assertNull($this->experiments->refFromCookie(""), "Empty cookie");
         $this->assertNull($this->experiments->refFromCookie("Poneys are awesome"), "Invalid content");

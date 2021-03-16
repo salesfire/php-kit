@@ -19,23 +19,21 @@ class LanguageTest extends TestCase
     /** @var \stdClass */
     private $json;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->json = $json = \json_decode($this->getJsonFixture('language.json'));
         $this->language = Language::parse($json);
     }
 
-    public function testCorrectId()
+    public function testCorrectId(): void
     {
         $this->assertSame($this->json->id, $this->language->getId());
         $this->assertSame($this->json->name, $this->language->getName());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testWrongObjectType()
+    public function testWrongObjectType(): void
     {
+        $this->expectException(\Prismic\Exception\InvalidArgumentException::class);
         Language::parse(new \stdClass);
     }
 }

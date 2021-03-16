@@ -12,20 +12,20 @@ class RichTextTest extends TestCase
     private $richText;
     private $linkResolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->richText = json_decode($this->getJsonFixture('rich-text.json'));
         $this->linkResolver = new FakeLinkResolver();
     }
 
-    public function testAsText()
+    public function testAsText(): void
     {
         $expected = "The title\n";
         $actual = RichText::asText($this->richText->title);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testAsHtml()
+    public function testAsHtml(): void
     {
         $expected = (
             '<h1>Heading 1</h1>' .
@@ -59,7 +59,7 @@ class RichTextTest extends TestCase
         $this->assertEquals($expected, RichText::asHtml($this->richText->description));
     }
 
-    public function testHtmlSerializer()
+    public function testHtmlSerializer(): void
     {
         $expected = (
             '<h1>Heading 1</h1>' .
@@ -110,7 +110,7 @@ class RichTextTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testNestedSpansAsHtml()
+    public function testNestedSpansAsHtml(): void
     {
         $expected = (
             '<p>Test <strong><em>lorem</em> ipsum</strong>.</p>' .
@@ -124,42 +124,42 @@ class RichTextTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testLabeledSpanAsHtml()
+    public function testLabeledSpanAsHtml(): void
     {
         $expected = '<p>Paragraph <span class="the-label">labeled span</span>.</p>';
         $actual = RichText::asHtml($this->richText->labeled_span);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDocumentLink()
+    public function testDocumentLink(): void
     {
         $expected = '<p>This is a <a href="http://host/doc/WKb3BSwAACgAb2M4">document link</a>.</p>';
         $actual = RichText::asHtml($this->richText->document_link, $this->linkResolver);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDocumentLinkWithoutLinkResolver()
+    public function testDocumentLinkWithoutLinkResolver(): void
     {
         $expected = '<p>This is a <a href="">document link</a>.</p>';
         $actual = RichText::asHtml($this->richText->document_link);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testBrokenDocumentLink()
+    public function testBrokenDocumentLink(): void
     {
         $expected = '<p>This is a <a href="http://host/404">broken document link</a>.</p>';
         $actual = RichText::asHtml($this->richText->broken_document_link, $this->linkResolver);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testBrokenDocumentLinkWithoutLinkResolver()
+    public function testBrokenDocumentLinkWithoutLinkResolver(): void
     {
         $expected = '<p>This is a <a href="">broken document link</a>.</p>';
         $actual = RichText::asHtml($this->richText->broken_document_link);
         $this->assertEquals($expected, $actual);
     }
 
-    public function testEmptyRichText()
+    public function testEmptyRichText(): void
     {
         $this->assertEquals('', RichText::asText($this->richText->empty));
 

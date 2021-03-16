@@ -9,18 +9,18 @@ class CacheTest extends TestCase
 {
     private $cache;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cache = new ApcCache();
     }
 
-    public function testSetGetValue()
+    public function testSetGetValue(): void
     {
         $this->cache->set('key', 'value');
         $this->assertEquals($this->cache->get('key'), 'value');
     }
 
-    public function testSetDeleteValue()
+    public function testSetDeleteValue(): void
     {
         $this->cache->set('key', 'value');
         $this->assertEquals($this->cache->get('key'), 'value');
@@ -28,7 +28,7 @@ class CacheTest extends TestCase
         $this->assertNull($this->cache->get('key'));
     }
 
-    public function testSetValueClearHas()
+    public function testSetValueClearHas(): void
     {
         $this->cache->set('key', 'value');
         $this->assertTrue($this->cache->has('key'));
@@ -51,7 +51,7 @@ class CacheTest extends TestCase
         $this->assertNull($this->cache->get('key2'));
     }
 
-    public function testSetGetReturnsExpectedValue()
+    public function testSetGetReturnsExpectedValue(): void
     {
         $data = \json_decode($this->getJsonFixture('data.json'));
         $this->cache->set('key', $data);
@@ -59,7 +59,7 @@ class CacheTest extends TestCase
         $this->assertEquals($data, $result);
     }
 
-    public function testLongUrlBasedCacheKeysArePersistedCorrectly()
+    public function testLongUrlBasedCacheKeysArePersistedCorrectly(): void
     {
         $data = \json_decode($this->getJsonFixture('data.json'));
         $url = $data->forms->everything->action;

@@ -15,17 +15,18 @@
         }
     },
     "license": "Apache-2.0",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "dev-master",
-        "phpunit/phpunit": "^7",
+        "phpunit/phpunit": "^8.0",
         "squizlabs/php_codesniffer": "^3.3"
     },
     "extra": {

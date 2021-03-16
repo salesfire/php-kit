@@ -15,29 +15,27 @@ class ApiDataTest extends TestCase
     /** @var ApiData */
     private $data;
 
-    public function setUp()
+    public function setUp(): void
     {
         $json = $this->getJsonFixture('data.json');
         $this->data = ApiData::withJsonString($json);
     }
 
-    public function testApiDataCanBeCreatedFromJsonString()
+    public function testApiDataCanBeCreatedFromJsonString(): void
     {
         $json = $this->getJsonFixture('data.json');
         $data = ApiData::withJsonString($json);
         $this->assertInstanceOf(ApiData::class, $data);
     }
 
-    /**
-     * @expectedException Prismic\Exception\RuntimeException
-     * @expectedExceptionMessage Unable to decode JSON response
-     */
-    public function testWithJsonStringThrowsExceptionForInvalidJson()
+    public function testWithJsonStringThrowsExceptionForInvalidJson(): void
     {
+        $this->expectException(\Prismic\Exception\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to decode JSON response');
         ApiData::withJsonString('wtf?');
     }
 
-    public function testApiDataHasExpectedValues()
+    public function testApiDataHasExpectedValues(): void
     {
         $this->assertCount(3, $this->data->getRefs());
         $this->assertContainsOnlyInstancesOf(Ref::class, $this->data->getRefs());
